@@ -25,7 +25,7 @@ $version = "v$($json.version.major).$($json.version.minor).$($json.version.patch
 The we build the deployment file
 #>
 
-$image = "ghcr.io/magicbtton/$($imagename)-web:$($version)"
+$image = "ghcr.io/magicbutton/$($imagename)-web:$($version)"
 
 $config = @"
 apiVersion: apps/v1
