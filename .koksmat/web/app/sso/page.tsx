@@ -25,7 +25,7 @@ import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import { useContext, useEffect, useState } from 'react'
 import jwt from "jsonwebtoken"
 import { set } from 'date-fns'
-import { APPNAME } from '@/global'
+import { APPNAME } from '@/app/global'
 import { useMsal } from '@azure/msal-react'
 export interface Me {
   "@odata.context": string
