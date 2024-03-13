@@ -10,7 +10,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <div className="h-screen w-screen overflow-hidden">
       <div className="flex h-screen flex-row">
         <div className="grow bg-transparent blur-md"></div>
-        <div className="w-[500px] bg-transparent transition-transform delay-150 ease-in-out">
+        <div className=" w-[0px] bg-transparent transition delay-150 ease-in-out">
       {children}
      
       </div></div>

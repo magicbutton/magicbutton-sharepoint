@@ -4,6 +4,8 @@ import * as React from "react";
 import { useContext, useState } from "react";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { MagicboxContext } from "@/koksmat/magicbox-context";
+import { RootPanel } from "./components/panels";
+import { Button } from "@/components/ui/button";
 
 export default function RootPage() {
   const magicbox = useContext(MagicboxContext);
@@ -77,6 +79,19 @@ export default function RootPage() {
     return () => window.removeEventListener("message", handler);
   }, []);
 
+  const parentCloseMe = () => {
+    if (!window.top)  return;
+    window.top.postMessage(
+      {
+        type: "closemagicbox",
+        data: "",
+      },
+      "*"
+    );
+  }
+
+
+
   if (mode === "leftbar") {
     return (
       <div className="h-screen w-[64px] overflow-hidden  bg-gray-200 ">
@@ -88,9 +103,13 @@ export default function RootPage() {
   
   return (
     <div className="m-4 h-screen overflow-hidden bg-gray-200">
- <pre>
+      <RootPanel title="Magicbox" onOpenChange={()=>parentCloseMe()}>
+        <Button onClick={()=>parentCloseMe()}>Close</Button>
+      <pre>
       {JSON.stringify({ magicbox,cmd, href, tool }, null, 2)}
  </pre>
+ 
+      </RootPanel>
     </div>
   );
 }
