@@ -6,6 +6,7 @@ import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { MagicboxContext } from "@/koksmat/magicbox-context";
 import { RootPanel } from "./components/panels";
 import { Button } from "@/components/ui/button";
+import PageInfo from "./components/pageinfo";
 
 export default function RootPage() {
   const magicbox = useContext(MagicboxContext);
@@ -103,11 +104,10 @@ export default function RootPage() {
   
   return (
     <div className="m-4 h-screen overflow-hidden bg-gray-200">
-      <RootPanel title="Magicbox" onOpenChange={()=>parentCloseMe()}>
-        <Button onClick={()=>parentCloseMe()}>Close</Button>
-      <pre>
-      {JSON.stringify({ magicbox,cmd, href, tool }, null, 2)}
- </pre>
+      <RootPanel title="Page Information" onOpenChange={()=>parentCloseMe()}>
+
+ {href && 
+ <PageInfo url={href} />}
  
       </RootPanel>
     </div>

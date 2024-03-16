@@ -1,4 +1,3 @@
-
 package magicapp
 
 import (
@@ -9,7 +8,6 @@ import (
 	"strings"
 
 	"github.com/365admin/magicbutton-sharepoint/endpoints"
-	"github.com/365admin/magicbutton-sharepoint/cmds"
 	"github.com/spf13/cobra"
 	"github.com/swaggest/rest/web"
 	swgui "github.com/swaggest/swgui/v4emb"
