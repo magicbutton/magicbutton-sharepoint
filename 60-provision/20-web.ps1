@@ -13,10 +13,10 @@ nexi-booking provision webdeployproduction
 $appname = "magicbutton-sharepoint"
 $imagename = "magicbutton-sharepoint"
 $dnsname = "magicbutton-sharepoint.home.nexi-intra.com"
-$inputFile = join-path  $env:KITCHENROOT $appname ".koksmat","koksmat.json"
+$inputFile = join-path  $env:KITCHENROOT $appname ".koksmat", "koksmat.json"
 $port = "4329"
 if (!(Test-Path -Path $inputFile) ) {
-   Throw "Cannot find file at expected path: $inputFile"
+  Throw "Cannot find file at expected path: $inputFile"
 } 
 $json = Get-Content -Path $inputFile | ConvertFrom-Json
 $version = "v$($json.version.major).$($json.version.minor).$($json.version.patch).$($json.version.build)"
@@ -48,8 +48,8 @@ spec:
         ports:
           - containerPort: $port
         env:
-        - name: NAME
-          value: VALUE
+        - name: NATS
+          value: nats://nats:4222
 
         
 ---
