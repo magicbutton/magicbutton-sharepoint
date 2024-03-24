@@ -30,6 +30,8 @@ export async function run<T>(
   try {
     nc = await connect({
       servers: [process.env.NATS ?? "nats://127.0.0.1:4222"],
+      name: "magicbutton-sharepoint-serverside",
+      debug: true,
     });
     const payload = JSON.stringify(req);
     const sc = StringCodec();

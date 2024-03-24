@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -7,9 +7,23 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { usePageInfo } from "@/magicservices/sharepoint-governance";
+import { MutatingDots } from "react-loader-spinner";
+import { getTransactionId } from "../server";
+import ShowNatsLog from "./nats";
 
 export default function PageInfo(props: { url: string }) {
   const { url } = props;
+  const [infochannelid, setinfochannelid] = useState("");
+  const [info, setinfo] = useState("");
+
+  useEffect(() => {
+    const load = async () => {
+      const id = await getTransactionId();
+      setinfochannelid(id);
+    };
+    load();
+  }, []);
+
   const pageActions = useMemo(() => {
     return [{ Title: "Approve", Email: "" }];
   }, []);
@@ -20,7 +34,27 @@ export default function PageInfo(props: { url: string }) {
     <div>
       {isLoading && <div>{isLoading}</div>}
 
-      {pageinfoerror && <div className="text-red-600">{pageinfoerror}</div>}
+      {pageinfoerror && pageinfoerror === "503" && (
+        <div className="text-red-600">
+          Cannot connect to backend at the moment, most likely the
+          sharepoint-governance service is not running
+        </div>
+      )}
+      {pageinfoerror && pageinfoerror !== "503" && (
+        <div className="text-red-600">{pageinfoerror}</div>
+      )}
+
+      {/* <MutatingDots
+        visible={true}
+        height="100"
+        width="100"
+        color="#4fa94d"
+        secondaryColor="#4fa94d"
+        radius="12.5"
+        ariaLabel="mutating-dots-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+      /> */}
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">
           <AccordionTrigger>Page History</AccordionTrigger>
@@ -65,6 +99,12 @@ export default function PageInfo(props: { url: string }) {
           </AccordionContent>
         </AccordionItem>
       </Accordion>
+      {infochannelid && (
+        <div>
+          {/* <div>{infochannelid}</div> */}
+          <ShowNatsLog subject={"trace"} />
+        </div>
+      )}
     </div>
   );
 }

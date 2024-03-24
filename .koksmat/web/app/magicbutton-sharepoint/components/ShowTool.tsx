@@ -7,10 +7,10 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
 } from "@/components/ui/dialog";
 
-function ShowTool(props: { showtool: string; sourceUrl: string; }) {
+export function ShowTool(props: { showtool: string; sourceUrl: string }) {
   const { showtool, sourceUrl } = props;
   if (showtool) {
     return (
